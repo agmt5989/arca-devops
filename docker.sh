@@ -25,3 +25,16 @@ docker run -dit --name mysql mysql /bin/bash
 docker exec nginx bash -c "apt update ; apt -y install iputils-ping"
 docker exec mysql bash -c "apt update ; apt -y install iputils-ping"
 
+# Going forwaard, we'll use the container names in an array
+declare -a instances=("kibana" "nginx" "mysql")
+
+# Basic docker networking
+docker network create entNet # short for enterprise network
+docker network connect kibana
+docker network connect nginx
+docker network connect mysql
+
+# Pipe the network info to stdout
+docker network inspect entNet
+
+# Verify that each container can ping the other two
