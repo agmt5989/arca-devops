@@ -6,6 +6,7 @@ echo "This is a script that automatically provisions 3 docker containers"
 echo "The containers will respectively contain kibana, nginx and mysql instances"
 
 # The docker commands
+echo "Pulling the three images from the docker registry"
 
 docker pull kibana:6.4.2
 docker pull nginx
@@ -31,20 +32,25 @@ declare -a instances=("kibana" "nginx" "mysql")
 # Basic docker networking
 docker network create entNet # short for enterprise network
 
-for i in "${instance[@]}"
+## now loop through the above array
+for i in "${instances[@]}"
 do
-	docker network connect entNet "$i"
+   docker network connect entNet "$i"
 done
 
 # Pipe the network info to stdout
 docker network inspect entNet
 
 # Verify that each container can ping all instances
-for i in "${instance[@]}"
+for i in "${!instances[@]}"
 do
-	for j in "${instance[@]}"
+	pingers=("${instances[@]}")
+	unset pingers[$i]
+
+	for j in "${pingers[@]}"
 	do
-		docker exec ${instances[i]} ping -c 2 ${instances[j]}
+		echo -e "\r\n\r\n===${instances[$i]} pinging $j . . . ==="
+		docker exec "${instances[$i]}" ping -c 2 "$j"
 	done
 done
 
