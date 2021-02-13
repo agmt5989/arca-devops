@@ -30,11 +30,23 @@ declare -a instances=("kibana" "nginx" "mysql")
 
 # Basic docker networking
 docker network create entNet # short for enterprise network
-docker network connect kibana
-docker network connect nginx
-docker network connect mysql
+
+for i in "${instance[@]}"
+do
+	docker network connect entNet "$i"
+done
 
 # Pipe the network info to stdout
 docker network inspect entNet
 
-# Verify that each container can ping the other two
+# Verify that each container can ping all instances
+for i in "${instance[@]}"
+do
+	for j in "${instance[@]}"
+	do
+		docker exec ${instances[i]} ping -c 2 ${instances[j]}
+	done
+done
+
+# There should be a total of 9 (not 6) outputs from previous command
+echo "Program complete"
