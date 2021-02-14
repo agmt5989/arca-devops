@@ -38,10 +38,12 @@ do
    docker network connect entNet "$i"
 done
 
+echo "Connected all containers to entNet"
+
 # Pipe the network info to stdout
 docker network inspect entNet
 
-# Verify that each container can ping all instances
+# Verify that each container can ping the other instances
 for i in "${!instances[@]}"
 do
 	pingers=("${instances[@]}")
@@ -54,5 +56,5 @@ do
 	done
 done
 
-# There should be a total of 9 (not 6) outputs from previous command
+# There should be a total of 6 outputs from previous command
 echo "Program complete"
