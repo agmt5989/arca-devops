@@ -1,0 +1,28 @@
+Description: >
+  Mike Ajala's instance deployment template on AWS default VPC
+
+Resources:
+  BaseInstance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: "ami-f4f4cf91"
+      InstanceType: t2.micro
+      KeyName: "base-instance"
+      SecurityGroups:
+        - !Ref WebSG
+  WebSG:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Enables HTTP access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 0.0.0.0/0
+
+Outputs:
+  InstanceID:
+    Description: Identifier for the provisioned EC2 instance
+    Value: !Ref BaseInstance
+    Export:
+      Name: "InstanceID"
