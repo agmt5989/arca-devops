@@ -18,7 +18,7 @@ echo "Successfully pulled container images from the docker public registry"
 # making sure to detatch in interactive mode, 
 
 docker run -dit --name kibana kibana:6.4.2 /bin/bash 
-docker run -dit --name nginx nginx /bin/bash
+docker run -dit --rm -p 8080:80 --name nginx -v ~/site-content:/usr/share/nginx/html nginx
 docker run -dit --name mysql mysql /bin/bash
 
 # Installing iputils-ping as the case applies.
@@ -57,4 +57,7 @@ do
 done
 
 # There should be a total of 6 outputs from previous command
+# Next verify that the kibana container can access the static web page on nginx
+docker exec kibana curl nginx
+
 echo "Program complete"
