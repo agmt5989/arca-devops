@@ -14,6 +14,11 @@ docker pull mysql
 
 echo "Successfully pulled container images from the docker public registry"
 
+# Move the demo static html file to user directory
+cp -pr ./site ~/site-content
+
+echo "Moved static index.html file from working directory to user directory"
+
 # Next, we create containers from the respective images, 
 # making sure to detatch in interactive mode, 
 
