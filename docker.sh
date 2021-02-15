@@ -66,3 +66,4 @@ done
 docker exec kibana curl nginx
 
 echo "Program complete"
+#EOF
