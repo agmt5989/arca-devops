@@ -54,3 +54,27 @@ Here, we create two identical Python scripts &mdash; one to stop, and another to
 5. `python power-on.py` will power up the stopped instance. Verify with step 5 from CloudFormation section. You may need a few seconds for changes to propagate.
 
 6. Cleanup the stack with step 6 in the CloudFormation section.
+
+## The Questions
+
+Rewritten for clarity.
+
+### A. Using Docker and Bash
+---
+Using bash script, Write a script that will automatically provision 3 docker containers running kibana version 6.4.2, nginx server, mysql server separately on each container.Environment:
+
+- container A: kibana version 6.4.2
+- container B: nginx server
+- container C: mysql server
+
+Acceptance criteria: Solution should be prepared as only one script, which creates three Docker images, runs containers from them, and configures Nginx.
+
+The three docker containers should also be able to ping each other regardless of where they are deployed.
+
+Provide a well documented steps for how to reproduce your work.
+
+### B. Cloudformation with Python for Infrastructure Automation 
+---
+- Write a CloudFormation template to provision a server in a default VPC
+- Write a python script to start the provisioned server
+- Write a python script to stop the provisioned server
