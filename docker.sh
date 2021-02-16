@@ -40,7 +40,7 @@ docker network create entNet # short for enterprise network
 ## now loop through the above array
 for i in "${instances[@]}"
 do
-   docker network connect entNet "$i"
+  docker network connect entNet "$i"
 done
 
 echo "Connected all containers to entNet"
@@ -48,7 +48,7 @@ echo "Connected all containers to entNet"
 # Pipe the network info to stdout
 docker network inspect entNet
 
-# Verify that each container can ping the other instances
+# Verify that each container can ping the other two instances
 for i in "${!instances[@]}"
 do
 	pingers=("${instances[@]}")
